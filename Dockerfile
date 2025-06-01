@@ -3,6 +3,10 @@ FROM richarvey/nginx-php-fpm:latest
 # Set working directory to match expected webroot
 WORKDIR /var/www/html
 
+# Create socket directory and set permissions
+RUN mkdir -p /var/run/php && \
+    chown -R www-data:www-data /var/run/php
+
 COPY . .
 
 # Image config
