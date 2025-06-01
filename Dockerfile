@@ -1,12 +1,4 @@
-FROM richarvey/nginx-php-fpm:latest
-
-# Set working directory to match expected webroot
-WORKDIR /var/www/html
-
-# Create socket directory and set permissions
-RUN mkdir -p /var/run/php && \
-    chown -R www-data:www-data /var/run/php && \
-    chmod 755 /var/run/php
+FROM richarvey/nginx-php-fpm:3.1.6
 
 COPY . .
 
@@ -19,7 +11,7 @@ ENV REAL_IP_HEADER 1
 
 # Laravel config
 ENV APP_ENV production
-ENV APP_DEBUG true
+ENV APP_DEBUG false
 ENV LOG_CHANNEL stderr
 
 # Allow composer to run as root
