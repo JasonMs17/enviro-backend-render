@@ -1,5 +1,8 @@
 FROM richarvey/nginx-php-fpm:latest
 
+# Set working directory to match expected webroot
+WORKDIR /var/www/html
+
 COPY . .
 
 # Image config
