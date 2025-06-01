@@ -17,7 +17,7 @@ return [
 
 'stateful' => explode(',', env('SANCTUM_STATEFUL_DOMAINS', sprintf(
     '%s%s',
-    'https://enviro-ppl.vercel.app, localhost,localhost:5173,localhost:8000,127.0.0.1:5173,127.0.0.1,127.0.0.1:8000,::1',
+    'enviro-ppl.vercel.app,localhost,localhost:5173,localhost:8000,127.0.0.1:5173,127.0.0.1,127.0.0.1:8000,::1',
     Sanctum::currentApplicationUrlWithPort()
 ))),
 
