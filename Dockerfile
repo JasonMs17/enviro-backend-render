@@ -16,6 +16,11 @@ COPY . .
 # Generate autoload files
 RUN composer dump-autoload --optimize
 
+# Set up Laravel
+RUN php artisan config:cache && \
+    php artisan route:cache && \
+    php artisan view:cache
+
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
@@ -34,6 +39,7 @@ ENV COMPOSER_ALLOW_SUPERUSER 1
 # Create necessary directories and set permissions
 RUN mkdir -p /var/run/php && \
     chown -R www-data:www-data /var/run/php && \
-    chown -R www-data:www-data /var/www/html
+    chown -R www-data:www-data /var/www/html && \
+    chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
 CMD ["/start.sh"]
