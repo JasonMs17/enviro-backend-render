@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Jalankan PHP-FPM di background
-php-fpm &
+# Jalankan PHP-FPM di background dengan konfigurasi TCP
+php-fpm -F &
 
 # Tunggu beberapa detik agar PHP-FPM benar-benar siap
 sleep 3
