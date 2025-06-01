@@ -1,10 +1,14 @@
 #!/bin/bash
 
-# Jalankan PHP-FPM di background dengan konfigurasi TCP
+# Create necessary directories
+mkdir -p /var/run/php
+chown -R www-data:www-data /var/run/php
+
+# Start PHP-FPM
 php-fpm -F &
 
-# Tunggu beberapa detik agar PHP-FPM benar-benar siap
+# Wait for PHP-FPM to be ready
 sleep 3
 
-# Jalankan Nginx di foreground
+# Start Nginx
 nginx -g "daemon off;"
