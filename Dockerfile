@@ -13,8 +13,7 @@ COPY . .
 RUN composer dump-autoload --optimize
 
 # Set up Laravel
-RUN php artisan key:generate --force && \
-    php artisan config:cache && \
+RUN php artisan config:cache && \
     php artisan route:cache && \
     php artisan view:cache
 
