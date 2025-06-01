@@ -5,7 +5,8 @@ WORKDIR /var/www/html
 
 # Create socket directory and set permissions
 RUN mkdir -p /var/run/php && \
-    chown -R www-data:www-data /var/run/php
+    chown -R www-data:www-data /var/run/php && \
+    chmod 755 /var/run/php
 
 COPY . .
 
