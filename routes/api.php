@@ -86,3 +86,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/user/fail-challenge', [ChallengeController::class, 'failChallenge']);
 });
 
+Route::get('/hello', fn() => 'Hello from backend');
+
