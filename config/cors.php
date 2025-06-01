@@ -31,7 +31,8 @@ return [
         'Accept',
         'Authorization',
         'X-XSRF-TOKEN',
-        'X-CSRF-TOKEN'
+        'X-CSRF-TOKEN',
+        'x-xsrf-token',
     ],
 
     'exposed_headers' => [],
