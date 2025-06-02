@@ -15,24 +15,18 @@ return [
     |
     */
 
-    'paths' => ['api/*', 'sanctum/csrf-cookie'],
+    // 'paths' => ['api/*', 'sanctum/csrf-cookie'],
 
     'allowed_methods' => [
         'GET', 'POST', 'PUT', 'DELETE', 'OPTIONS',
     ],
 
-    'allowed_origins' => ['https://enviro-ppl.vercel.app'],
+    'allowed_origins' => ['*'],
 
     'allowed_origins_patterns' => [],
 
     'allowed_headers' => [
-        'X-Requested-With',
-        'Content-Type',
-        'Accept',
-        'Authorization',
-        'X-XSRF-TOKEN',
-        'X-CSRF-TOKEN',
-        'x-xsrf-token',
+        '*'
     ],
 
     'exposed_headers' => [],
