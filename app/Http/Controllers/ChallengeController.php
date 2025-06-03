@@ -168,7 +168,7 @@ class ChallengeController extends Controller
         $userId = Auth::id();
 
         $report = ChallengeReport::where('user_id', $userId)
-            ->where('countdown_end_at', '<=', now())
+            // ->where('countdown_end_at', '<=', now())
             ->where('active', 1)
             ->first();
 
