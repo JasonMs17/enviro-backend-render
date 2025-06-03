@@ -47,7 +47,7 @@ class AppServiceProvider extends ServiceProvider
                 throw new \Exception('Missing signature parameter in URL.');
             }
 
-            $frontendUrl = config('app.frontend_url') . 'verify-email?' . http_build_query([
+            $frontendUrl = config('app.frontend_url') . '/verify-email?' . http_build_query([
                 'id' => $id,
                 'hash' => $hash,
                 'expires' => $queryParams['expires'],
@@ -62,7 +62,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Custom password reset link
         ResetPassword::createUrlUsing(function (object $notifiable, string $token) {
-            return config('app.frontend_url')."reset-password/$token?email={$notifiable->getEmailForPasswordReset()}";
+            return config('app.frontend_url')."/reset-password/$token?email={$notifiable->getEmailForPasswordReset()}";
         });
     }
 }
