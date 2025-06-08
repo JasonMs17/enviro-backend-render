@@ -34,12 +34,36 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/email/verify', [RegisterController::class, 'resendEmailVerification'])->name('verification.send');
 });
 
-Route::get('/verify-email/{id}/{hash}', function (EmailVerificationRequest $request) {
-    // Fulfill the email verification
-    $request->fulfill();
+Route::get('/verify-email/{id}/{hash}', function ($id, $hash) {
+    try {
+        $user = \App\Models\User::findOrFail($id);
 
-    // Return a response (you can customize this response)
-    return response()->json(['message' => 'Email verified successfully.'], 200);
+        if (!hash_equals(
+            sha1($user->getEmailForVerification()),
+            $hash
+        )) {
+            throw new \Exception('Invalid verification link');
+        }
+
+        if ($user->hasVerifiedEmail()) {
+            return response()->json([
+                'message' => 'Email already verified.',
+                'redirect_url' => '/login'
+            ], 200);
+        }
+
+        $user->markEmailAsVerified();
+
+        return response()->json([
+            'message' => 'Email verified successfully.',
+            'redirect_url' => '/login'
+        ], 200);
+    } catch (\Exception $e) {
+        return response()->json([
+            'message' => 'Email verification failed',
+            'error' => $e->getMessage()
+        ], 500);
+    }
 })->name('verification.verify');
 
 Route::post('/reset-password', [ResetPasswordController::class, 'sendResetLink']);
@@ -83,3 +107,21 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/check-reminder-status', [ChallengeController::class, 'checkReminderStatus']);
     Route::post('/user/fail-challenge', [ChallengeController::class, 'failChallenge']);
 });
+
+// Route::get('/verify-email/{id}/{hash}', function (EmailVerificationRequest $request) {
+//     try {
+//         // Fulfill the email verification
+//         $request->fulfill();
+
+//         // Return a response with success message and redirect URL
+//         return response()->json([
+//             'message' => 'Email verified successfully.',
+//             'redirect_url' => '/login' // atau URL frontend yang sesuai
+//         ], 200);
+//     } catch (\Exception $e) {
+//         return response()->json([
+//             'message' => 'Email verification failed',
+//             'error' => $e->getMessage()
+//         ], 500);
+//     }
+// })->name('verification.verify');
