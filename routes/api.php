@@ -40,7 +40,7 @@ Route::get('/verify-email/{id}/{hash}', function (EmailVerificationRequest $requ
 
     // Return a response (you can customize this response)
     return response()->json(['message' => 'Email verified successfully.'], 200);
-})->name('verification.verify')->middleware(['auth:sanctum', 'signed']);
+})->name('verification.verify');
 
 Route::post('/reset-password', [ResetPasswordController::class, 'sendResetLink']);
 Route::post('/reset-password/confirm', [ResetPasswordController::class, 'resetPassword']);
@@ -83,4 +83,3 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/check-reminder-status', [ChallengeController::class, 'checkReminderStatus']);
     Route::post('/user/fail-challenge', [ChallengeController::class, 'failChallenge']);
 });
-
