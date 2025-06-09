@@ -11,10 +11,13 @@ return new class extends Migration
         DB::statement('DROP VIEW IF EXISTS available_challenges');
         DB::statement("
             CREATE VIEW available_challenges AS
-            SELECT c.*
+            SELECT 
+                c.*,
+                u.id AS user_id
             FROM challenges c
-            LEFT JOIN challenge_reports cr ON c.id = cr.challenge_id
-            WHERE cr.challenge_id IS NULL
+            CROSS JOIN users u
+            LEFT JOIN challenge_reports cr ON c.id = cr.challenge_id AND cr.user_id = u.id
+            WHERE cr.id IS NULL OR cr.completed_at IS NULL
         ");
     }
 

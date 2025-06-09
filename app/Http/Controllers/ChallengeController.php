@@ -15,10 +15,11 @@ use Illuminate\Support\Facades\Mail;
 
 class ChallengeController extends Controller
 {
-
     public function showchallenge(): JsonResponse
     {
+        $user = Auth::user();
         $challenges = DB::table('available_challenges')
+            ->where('user_id', $user->id)
             ->select('id', 'title', 'description')
             ->get();
 
